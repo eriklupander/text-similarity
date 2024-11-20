@@ -1,0 +1,7 @@
+/target
+
+# custom
+.vscode
+.git
+.gitignore
+Dockerfile
