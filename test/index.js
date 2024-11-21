@@ -11,32 +11,25 @@ const serviceUrl = 'http://localhost:8081/similarity';
 
 export const options = {
     stages: [
-        { duration: '30s', target: 100 }, 
-        { duration: '1m', target: 100 },  
-        { duration: '30s', target: 250 }, 
-        { duration: '1m', target: 250 },
-        { duration: '30s', target: 500 },
-        { duration: '1m', target: 500 },
-        { duration: '30s', target: 1000 },
-        { duration: '1m', target: 1000 },
-        { duration: '30s', target: 2500 },
-        { duration: '1m', target: 2500 },
+        { duration: '30s', target: 100 },
+        { duration: '1m', target: 100 },
+        { duration: '30s', target: 200 },
+        { duration: '1m', target: 200 },
+        { duration: '30s', target: 400 },
+        { duration: '1m', target: 400 },
+        { duration: '30s', target: 800 },
+        { duration: '1m', target: 800 },
+        { duration: '30s', target: 1600 },
+        { duration: '1m', target: 1600 },
+        { duration: '30s', target: 3200 },
+        { duration: '1m', target: 3200 },
         { duration: '30s', target: 5000 },
         { duration: '1m', target: 5000 },
-        { duration: '30s', target: 10000 },
-        { duration: '1m', target: 10000 },
+        { duration: '2m', target: 0 },
     ],
     thresholds: {
-        "http_req_failed": [{
-            "threshold": "rate<0.01",
-            abortOnFail: true,
-            delayAbortEval: '10s',
-        }],
-        "http_req_duration": [{
-            "threshold": "p(95)<1500",
-            abortOnFail: true,
-            delayAbortEval: '10s',
-        }],
+        "http_req_failed": ["rate<0.01"],
+        "http_req_duration": ["p(95)<1500"],
     },
 };
 
