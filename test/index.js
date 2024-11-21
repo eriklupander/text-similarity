@@ -1,13 +1,13 @@
-import http from 'k6/http';
 import { check } from 'k6';
 import { SharedArray } from 'k6/data';
+import http from 'k6/http';
 import papaparse from './papaparse.min.js';
 
 const data = new SharedArray('Test texts', function () {
     return papaparse.parse(open('./data.csv'), { header: true }).data;
 });
 
-const serviceUrl = 'http://localhost:8081/similarity';
+const serviceUrl = 'http://localhost:8082/similarity';
 
 export const options = {
     stages: [
@@ -19,12 +19,6 @@ export const options = {
         { duration: '1m', target: 400 },
         { duration: '30s', target: 800 },
         { duration: '1m', target: 800 },
-        { duration: '30s', target: 1600 },
-        { duration: '1m', target: 1600 },
-        { duration: '30s', target: 3200 },
-        { duration: '1m', target: 3200 },
-        { duration: '30s', target: 5000 },
-        { duration: '1m', target: 5000 },
         { duration: '2m', target: 0 },
     ],
     thresholds: {
@@ -34,8 +28,8 @@ export const options = {
 };
 
 export default function () {
-    const text1 = data[Math.floor(Math.random() * data.length)].Text;
-    const text2 = data[Math.floor(Math.random() * data.length)].Text;
+    const text1 = data[Math.floor(Math.random() * (data.length - 1))].Text;
+    const text2 = data[Math.floor(Math.random() * (data.length - 1))].Text;
 
     const payload = JSON.stringify({
         text1: text1,
