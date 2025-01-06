@@ -7,19 +7,16 @@ const data = new SharedArray('Test texts', function () {
     return papaparse.parse(open('./data.csv'), { header: true }).data;
 });
 
-const serviceUrl = 'http://localhost:8082/similarity';
+const serviceUrl = 'http://localhost:8081/similarity';
 
 export const options = {
     stages: [
-        { duration: '30s', target: 100 },
-        { duration: '1m', target: 100 },
-        { duration: '30s', target: 200 },
-        { duration: '1m', target: 200 },
+        { duration: '15s', target: 200 },
         { duration: '30s', target: 400 },
-        { duration: '1m', target: 400 },
         { duration: '30s', target: 800 },
-        { duration: '1m', target: 800 },
-        { duration: '2m', target: 0 },
+        { duration: '30s', target: 400 },
+        { duration: '30s', target: 200 },
+        { duration: '15s', target: 0 },
     ],
     thresholds: {
         "http_req_failed": ["rate<0.01"],
