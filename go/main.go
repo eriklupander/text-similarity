@@ -105,11 +105,11 @@ func similarityHandler(c *fiber.Ctx) error {
 	words2 := strings.Split(string(text2), " ")
 
 	uw := strset.NewWithSize(len(words1) + len(words2))
-	uw.Add(append(words1, words2...)...)
-	uniqueWords := uw.List()
+	//uw.Add(append(words1, words2...)...)
 
-	fm1 := generateFrequencyMapWithCapacity(words1)
-	fm2 := generateFrequencyMapWithCapacity(words2)
+	fm1 := generateFrequencyMapWithCapacity(words1, uw)
+	fm2 := generateFrequencyMapWithCapacity(words2, uw)
+	uniqueWords := uw.List()
 
 	total1 := len(words1)
 	total2 := len(words2)
@@ -290,10 +290,11 @@ func generateFrequencyMap(words []string) map[string]int {
 
 	return frequencyMap
 }
-func generateFrequencyMapWithCapacity(words []string) map[string]int {
+func generateFrequencyMapWithCapacity(words []string, uw *strset.Set) map[string]int {
 	frequencyMap := make(map[string]int, len(words))
 	for _, word := range words {
 		frequencyMap[word]++
+		uw.Add(word)
 	}
 
 	return frequencyMap

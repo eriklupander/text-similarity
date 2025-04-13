@@ -80,7 +80,7 @@ func TestFrequencyMap(t *testing.T) {
 }
 func TestFrequencyMapCapacity(t *testing.T) {
 	words1 := strings.Split(normalizeText(line1), " ")
-	m := generateFrequencyMapWithCapacity(words1)
+	m := generateFrequencyMapWithCapacity(words1, strset.New())
 	assert.Equal(t, 775, len(m))
 }
 func TestFrequencyMapSwiss(t *testing.T) {
@@ -286,9 +286,10 @@ func BenchmarkFrequencyStandardMap(b *testing.B) {
 func BenchmarkFrequencyStandardMapWithCapacity(b *testing.B) {
 	words1 := strings.Split(normalizeText(line1), " ")
 	words2 := strings.Split(normalizeText(line2), " ")
+	uw := strset.NewWithSize(len(words1) + len(words2))
 	for i := 0; i < b.N; i++ {
-		_ = generateFrequencyMapWithCapacity(words1)
-		_ = generateFrequencyMapWithCapacity(words2)
+		_ = generateFrequencyMapWithCapacity(words1, uw)
+		_ = generateFrequencyMapWithCapacity(words2, uw)
 	}
 }
 func BenchmarkFrequencySwissMap(b *testing.B) {
